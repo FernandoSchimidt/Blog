@@ -168,28 +168,51 @@ router.get("/postagens/edit/:id", (req, res) => {
 
 //Atualiza os dados da postaem
 router.post("/postagem/edit", (req, res) => {
-    //validação nescessario
-    Postagem.findOne({ _id: req.body.id }).then((postagem) => {
+        //validação nescessario
+        Postagem.findOne({ _id: req.body.id }).then((postagem) => {
 
-        postagem.titulo = req.body.titulo
-        postagem.slug = req.body.slug
-        postagem.descricao = req.descricao
-        postagem.conteudo = req.body.conteudo
-        postagem.categoria = req.categoria
+            postagem.titulo = req.body.titulo
+            postagem.slug = req.body.slug
+            postagem.descricao = req.body.descricao
+            postagem.conteudo = req.body.conteudo
+            postagem.categoria = req.body.categoria
 
-        postagem.save().then(() => {
-            req.flash("success_msg", "Postagem editada com sucesso!")
-            res.redirect("/admin/postagens")
+            postagem.save().then(() => {
+                req.flash("success_msg", "Postagem editada com sucesso!")
+                res.redirect("/admin/postagens")
+            }).catch((err) => {
+                req.flash("error_msg", "Erro interno")
+                res.redirect("/admin/postagens")
+            })
+
         }).catch((err) => {
-            req.flash("error_msg", "Erro interno")
+            console.log(err)
+            req.flash("error_msg", "Houve um erro ao salvar a edição")
             res.redirect("/admin/postagens")
         })
-
-    }).catch((err) => {
-        console.log(err)
-        req.flash("error_msg", "Houve um erro ao salvar a edição")
-        res.redirect("/admin/postagens")
     })
-})
+    //UMA FORMA DE DELTAR POSTAGENS
+
+router.post("/postagens/deletar", (req, res) => {
+        Postagem.remove({ _id: req.body.id }).then(() => {
+            req.flash("success_msg", "Postagem delatada com sucesso!")
+            res.redirect("/admin/postagens")
+        }).catch((err) => {
+            req.flash("error_msg", "Erro ao deletar a postagem")
+            res.redirect("/admin/postagens")
+        })
+    })
+    /*Segunda forma de deletar
+router.get("/postagens/deletar/:id", (req, resp) => {
+    Postagem.remove({ _id: req.params.id }).then(() => {
+        req.flash("success_msg", "Postagen deletada com sucesso!")
+        res.redirect("/admin/postagens")
+    }).catch((err) => {
+        req.flash("error_msg)", "Houve um erro interno")
+        req.redirect("/admin/postagens")
+    })
+})*/
+
+
 
 module.exports = router

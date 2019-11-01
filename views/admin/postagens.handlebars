@@ -10,6 +10,15 @@
         <small>Data: {{data}}</small>
         <small>Categoria: {{categoria.nome}}</small><br>
         <a href="/admin/postagens/edit/{{_id}}"><button class="btn btn-success mt-3">Editar postagem</button></a>
+          <!--Segunda forma de deletar 
+             <a href="/admin/postagens/deletar/{{_id}}"><button class="btn btn-danger mt-3">Deletar postagem</button></a> -->
+ 
+  <!-- Primaeira forma de deletar postagens -->
+            <form action="/admin/postagens/deletar" method="POST">
+             <input type="hidden" name="id" value="{{_id}}">
+        <button type="submit" class="btn btn-danger mt-2">Deletar postagem</button>
+    </form>
+     
     </div>
 </div>
 {{else}}

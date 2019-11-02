@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">Blog Fernando Schimidt</a>
+  <a class="navbar-brand" href="/">Fernando Schimidt</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -12,14 +12,19 @@
       <li class="nav-item">
         <a class="nav-link" href="/categorias">Categorias</a>
       </li>
-      
-      <li class="nav-item">
-        <a class="nav-link disabled" href="/usuarios/login" tabindex="-1" aria-disabled="true">Login</a>
+      {{#if user}}
+        <li class="nav-item">
+          <a class="bav-link " href="/usuarios/logout"></a>
+        </li>
+      {{else}}
+            <li class="nav-item">
+        <a class="nav-link " href="/usuarios/login" >Login</a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Registro</a>
+        <a class="nav-link " href="/usuarios/registro">Registro</a>
       </li>
+      {{/if}}
     </ul>
     
   </div>

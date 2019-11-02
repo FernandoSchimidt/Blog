@@ -40,34 +40,35 @@ router.post("/registro", (req, res) => {
                 const novoUsuario = new Usuario({
                     nome: req.body.nome,
                     email: req.body.email,
-                    senha: req.body.senha
+                    senha: req.body.senha,
+                    eAdmin: 1
                 })
 
-                /*  novoUsuario.save().then(() => {
-                      req.flash("success_msg", "Usuario cadastrado com sucesso")
-                      res.redirect("/")
-                  }).catch((err) => {
-                      req.flash("error_msg", "Houve um erro ao criar o usario, tente novamente!")
-                      res.redirect("usuario/registro")
-                  })*/
-
-                bcrypt.getSalt(10, (erro, salt) => {
-                    bcrypt.hash(novoUsuario.senha, salt, (erro, hash) => {
-                        if (erro) {
-                            req.flash("error_msg", "Houve um erro durante o salvamento do usuário")
-                            res.redirect("/")
-                        }
-                        novoUsuario.senha = hash
-
-                        novoUsuario.save().then(() => {
-                            req.flash("success_msg", "Usuario cadastrado com sucesso")
-                            res.redirect("/")
-                        }).catch((err) => {
-                            req.flash("error_msg", "Houve um erro ao criar o usario, tente novamente!")
-                            res.redirect("usuario/registro")
-                        })
-                    })
+                novoUsuario.save().then(() => {
+                    req.flash("success_msg", "Usuario cadastrado com sucesso")
+                    res.redirect("/")
+                }).catch((err) => {
+                    req.flash("error_msg", "Houve um erro ao criar o usario, tente novamente!")
+                    res.redirect("usuario/registro")
                 })
+
+                /* bcrypt.getSalt(10, (erro, salt) => {
+                     bcrypt.hash(novoUsuario.senha, salt, (erro, hash) => {
+                         if (erro) {
+                             req.flash("error_msg", "Houve um erro durante o salvamento do usuário")
+                             res.redirect("/")
+                         }
+                         novoUsuario.senha = hash
+
+                         novoUsuario.save().then(() => {
+                             req.flash("success_msg", "Usuario cadastrado com sucesso")
+                             res.redirect("/")
+                         }).catch((err) => {
+                             req.flash("error_msg", "Houve um erro ao criar o usario, tente novamente!")
+                             res.redirect("usuario/registro")
+                         })
+                     })
+                 })*/
 
             }
         }).catch((err) => {
@@ -90,5 +91,9 @@ router.post("/login", (req, res, next) => {
         failureFlash: true
     })(req, res, next)
 })
-
+router.get("/logout", (req, res) => {
+    req.logOut()
+    req.flash("success_msg", "Deslogado com sucesso!")
+    res.redirect("/")
+})
 module.exports = router

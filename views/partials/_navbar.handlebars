@@ -13,9 +13,14 @@
         <a class="nav-link" href="/categorias">Categorias</a>
       </li>
       {{#if user}}
-        <li class="nav-item">
-          <a class="bav-link " href="/usuarios/logout"></a>
+         <li class="nav-item ">
+          <a class="nav-link " href="/admin/postagens">Postar</a>
         </li>
+        
+        <li class="nav-item ">
+          <a class="nav-link " href="/usuarios/logout">Logout</a>
+        </li>
+        
       {{else}}
             <li class="nav-item">
         <a class="nav-link " href="/usuarios/login" >Login</a>
